@@ -1,0 +1,26 @@
+language: bash
+
+services:
+  - docker
+
+env:
+  global:
+    #change the registry name and username/password to yourself's.
+    - DOCKER_HUB=xiewen
+    - ALI_REGISTRY=registry.cn-beijing.aliyuncs.com/xwk8s
+
+before_script:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker login "$ALI_REGISTRY" -u "$ALI_USERNAME" -p "$ALI_PASSWORD"
+
+script:
+  - echo "start pull and retag and push"
+  - |
+    while IFS="" read -r image; do
+        image_name=${image##*/}
+        docker pull "$image"
+        docker tag "$image" "$DOCKER_HUB/$image_name"
+        docker tag "$image" "$ALI_REGISTRY/$image_name"
+        docker push "$DOCKER_HUB/$image_name"
+        docker push "$ALI_REGISTRY/$image_name"
+    done < img-list.txt

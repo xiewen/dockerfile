@@ -1,0 +1,2 @@
+gcr.io/google-containers/kube-apiserver:v1.18.5
+quay.io/coreos/etcd:v3.4.9
