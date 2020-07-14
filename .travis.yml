@@ -10,8 +10,8 @@ env:
     - ALI_REGISTRY=registry.cn-beijing.aliyuncs.com/xwk8s
 
 before_script:
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker login "$ALI_REGISTRY" -u "$ALI_USERNAME" -p "$ALI_PASSWORD"
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo "$ALI_PASSWORD" | docker login "$ALI_REGISTRY" -u "$ALI_USERNAME" --password-stdin
 
 script:
   - echo "start pull and retag and push"
