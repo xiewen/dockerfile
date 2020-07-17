@@ -9,6 +9,9 @@ env:
     - DOCKER_HUB=xiewen
     - ALI_REGISTRY=registry.cn-beijing.aliyuncs.com/xwk8s
 
+#script:
+#- "./sync_gcr_repo.sh"
+
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - echo "$ALI_PASSWORD" | docker login "$ALI_REGISTRY" -u "$ALI_USERNAME" --password-stdin
